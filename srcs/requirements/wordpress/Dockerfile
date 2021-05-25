@@ -6,7 +6,7 @@
 #    By: tmorris <tmorris@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 16:53:08 by tmorris           #+#    #+#              #
-#    Updated: 2021/05/25 11:43:15 by tmorris          ###   ########.fr        #
+#    Updated: 2021/05/25 12:30:09 by tmorris          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ RUN wget -q -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds
 RUN mkdir html
 RUN tar xzf latest.tar.gz -C ./html/
 
-COPY ./srcs/www.conf /etc/php/7.3/fpm/pool.d/www.conf 
+COPY ./srcs/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY ./srcs/wp-config.php ./
 COPY ./srcs/setup.sh ./
 
 # Expose ports and set autoindex to on by default
