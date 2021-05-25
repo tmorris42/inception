@@ -1,0 +1,1 @@
+You probably already know if auto index is on, because you selected this from the directory listing

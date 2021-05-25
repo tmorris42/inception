@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+    mysql:
+        image: my_mariadb_img:latest
+        volumes:
+            - "mariadb-db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: mysql_root_pass
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: username
+            MYSQL_PASSWORD: password
+        restart: always
+        expose:
+            - 3306
+    wordpress:
+        image: my_wordpress:latest
+        volumes:
+            - "wp-test:/var/www/html"
+        depends_on:
+            - mysql
+        environment:
+            WORDPRESS_DB_HOST: mysql:3306
+            MYSQL_ROOT_PASSWORD: mysql_root_pass
+            WORDPRESS_DB_NAME: wordpress
+            WORDPRESS_DB_USER: username
+            WORDPRESS_DB_PASSWORD: password
+            WORDPRESS_TABLE_PREFIX: wp_
+        links:
+            - mysql
+        restart: always
+        expose:
+            - 9000
+    nginx:
+        image: my_nginx_img:latest
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - wordpress
+        volumes:
+            - "wp-test:/var/www/html"
+        restart: always
+
+volumes:
+    wp-test:
+    mariadb-db:
