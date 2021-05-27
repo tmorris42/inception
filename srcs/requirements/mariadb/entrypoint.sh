@@ -9,4 +9,6 @@ if [ "$USER_EXISTS" = "0" ]; then
 	mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE . * TO  '$MYSQL_USER'@'srcs_wordpress_1.srcs_default' IDENTIFIED BY '$MYSQL_PASSWORD';";
 	mysql -e "FLUSH PRIVILEGES;";
 fi
-mysqld;
+service mysql stop;
+
+exec mysqld;
