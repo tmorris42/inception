@@ -1,11 +1,4 @@
 server {
-	listen 80;
-	listen [::]:80;
-	server_name localhost www.localhost;
-	return 302 https://$server_name$request_uri;
-}
-
-server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
@@ -22,6 +15,7 @@ server {
 	}
 
 	location ~ \.php$ {
+		include mime.types;
 		include snippets/fastcgi-php.conf;
 		fastcgi_pass wordpress:9000;
 	}

@@ -6,7 +6,7 @@
 #    By: tmorris <tmorris@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 16:53:08 by tmorris           #+#    #+#              #
-#    Updated: 2021/05/25 12:30:09 by tmorris          ###   ########.fr        #
+#    Updated: 2021/05/26 20:21:23 by tmorris          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ WORKDIR /tmp/
 RUN wget -q http://wordpress.org/latest.tar.gz
 RUN wget -q -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-# Unpack phpMyAdmin and WordPress
+# Unpack WordPress
 RUN mkdir html
 RUN tar xzf latest.tar.gz -C ./html/
 
