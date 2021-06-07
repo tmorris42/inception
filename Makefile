@@ -16,4 +16,8 @@ re:
 	$(MAKE) done
 	$(MAKE) all
 
+create_user:
+	sudo usermod -aG docker $(USER)
+	newgrp docker
+
 .PHONY: all done re
