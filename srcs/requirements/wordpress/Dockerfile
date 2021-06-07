@@ -42,4 +42,4 @@ COPY ./srcs/setup.sh ./
 
 # Expose ports and set autoindex to on by default
 EXPOSE 9000
-ENTRYPOINT ["bash", "setup.sh"]
+ENTRYPOINT ["bash", "entrypoint.sh"]

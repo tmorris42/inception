@@ -3,12 +3,16 @@ service php7.3-fpm stop
 
 cp -r /tmp/html/wordpress /var/www/html/
 cp /tmp/wp-config.php /var/www/html/wordpress/
-#cp /tmp/wp-config.php /var/www/html/wordpress/
 
 # Set permissions
-#chown www-data:www-data /var/www/tmorris/html/phpmyadmin/tmp
-#chmod 700 /var/www/tmorris/html/phpmyadmin/tmp
 chmod +x /usr/local/bin/wp
+
+# Verify that mysql is up and running
+while ! mysqladmin ping -h"mysql" --silent; do
+	echo "Waiting for mysql connection..."
+	sleep 1
+done
+echo "Connected."
 
 # Install WordPress using non-root user
 useradd -m subuser
