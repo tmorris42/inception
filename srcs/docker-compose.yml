@@ -3,7 +3,7 @@ version: '3'
 services:
     mysql:
         build: ./requirements/mariadb/
-        image: my_mariadb_img:latest
+        image: my_mariadb_img
         volumes:
             - "mariadb-db:/var/lib/mysql"
         env_file:
@@ -15,7 +15,7 @@ services:
             - 3306
     wordpress:
         build: ./requirements/wordpress/
-        image: my_wordpress_img:latest
+        image: my_wordpress_img
         volumes:
             - "wp-test:/var/www/html"
         depends_on:
@@ -30,7 +30,7 @@ services:
             - 9000
     nginx:
         build: ./requirements/nginx/
-        image: my_nginx_img:latest
+        image: my_nginx_img
         ports:
             - 443:443
         volumes:
