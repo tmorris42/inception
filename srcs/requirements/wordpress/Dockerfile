@@ -38,7 +38,7 @@ RUN tar xzf latest.tar.gz -C ./html/
 
 COPY ./srcs/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 COPY ./srcs/wp-config.php ./
-COPY ./srcs/setup.sh ./
+COPY ./srcs/entrypoint.sh ./
 
 # Expose ports and set autoindex to on by default
 EXPOSE 9000
