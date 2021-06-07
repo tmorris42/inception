@@ -25,18 +25,35 @@
 
 // a helper function to lookup "env_FILE", "env", then fallback
 if (!function_exists('getenv_docker')) {
+	$mylogfile = fopen("/tmp/logfile.log", "a");
+	fwrite($mylogfile, "HEY, CREATING THE FUNCTION INFILE LIKE WE THOUGHT\n");
+	fclose($mylogfile);
 	// https://github.com/docker-library/wordpress/issues/588 (WP-CLI will load this file 2x)
 	function getenv_docker($env, $default) {
+		$mylogfile = fopen("/tmp/logfile.log", "a");
+		fwrite($mylogfile, "Running getenv_docker for var: $env\n");
 		if ($fileEnv = getenv($env . '_FILE')) {
+			fwrite($mylogfile, "It looks like the value from env_FILE is being read ($fileEnv)\n");
+			fclose($mylogfile);
 			return rtrim(file_get_contents($fileEnv), "\r\n");
 		}
 		else if (($val = getenv($env)) !== false) {
+			fwrite($mylogfile, "It looks like the value from env is being read ($val)\n");
+			fclose($mylogfile);
 			return $val;
 		}
 		else {
+			$envVersion = getenv($env);
+			fwrite($mylogfile, "It looks like we're just using the default ($default) instead of ($envVersion)\n");
+			fclose($mylogfile);
 			return $default;
 		}
 	}
+}
+else {
+	$mylogfile = fopen("/tmp/logfile.log", "a");
+	fwrite($mylogfile, "It looks like that function already exists :(");
+	fclose($mylogfile);
 }
 
 // ** MySQL settings - You can get this info from your web host ** //
@@ -118,6 +135,9 @@ if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 	eval($configExtra);
 }
 
+
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

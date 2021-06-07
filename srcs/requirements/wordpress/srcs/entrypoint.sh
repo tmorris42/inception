@@ -14,10 +14,12 @@ while ! mysqladmin ping -h"mysql" --silent; do
 done
 echo "Connected."
 
+echo "checking environment:"
+env
+
+
 # Install WordPress using non-root user
-useradd -m subuser
-chown -R subuser:subuser /var/www/html/
-runuser -l subuser -c 'wp core install --url="localhost/wordpress/"  --title="tmorris Demo" --admin_user="admin" --admin_password="user42" --admin_email="example@example.com" --path=/var/www/html/wordpress/'
+wp core install --allow-root --url="localhost/wordpress/"  --title="tmorris Demo" --admin_user=$WP_ADMIN_USERNAME --admin_password=$WP_ADMIN_PASSWORD --admin_email="example@example.com" --path=/var/www/html/wordpress/
 
 php-fpm7.3 -F -R
 
