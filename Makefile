@@ -9,8 +9,11 @@ all:
 done:
 	docker-compose -f $(CONFIG_PATH) down
 
-re:
-	$(MAKE) done
+fclean: done
+	docker volume rm srcs_mariadb-db srcs_wp-test 
+	docker image rm my_wordpress_img my_mariadb_img my_nginx_img
+
+re: fclean
 	$(MAKE) all
 
 create_user:
