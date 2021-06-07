@@ -22,4 +22,4 @@ RUN cp ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Expose ports and set autoindex
 EXPOSE 3306
-CMD ["bash", "entrypoint.sh"]
+ENTRYPOINT ["bash", "entrypoint.sh"]
