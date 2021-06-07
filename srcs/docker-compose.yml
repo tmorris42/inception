@@ -9,19 +9,22 @@ services:
         env_file:
             - .env
         restart: always
+        networks:
+            - backend
         expose:
             - 3306
     wordpress:
         build: ./requirements/wordpress/
-        image: my_wordpress:latest
+        image: my_wordpress_img:latest
         volumes:
             - "wp-test:/var/www/html"
         depends_on:
             - mysql
         env_file:
             - .env
-        links:
-            - mysql
+        networks:
+            - frontend
+            - backend
         restart: always
         expose:
             - 9000
@@ -31,11 +34,15 @@ services:
         ports:
             - 80:80
             - 443:443
-        links:
-            - wordpress
         volumes:
             - "wp-test:/var/www/html"
         restart: always
+        networks:
+            - frontend
+
+networks:
+    frontend:
+    backend:
 
 volumes:
     wp-test:
