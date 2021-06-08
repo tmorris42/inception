@@ -17,7 +17,7 @@ echo "Connected."
 # Install WordPress using non-root user
 useradd -m wpuser
 chown -R wpuser:wpuser /var/www/html/
-runuser -p wpuser -c 'wp core install --url="localhost/wordpress/"  --title="tmorris Demo" --admin_user=$WP_ADMIN_USERNAME --admin_password=$WP_ADMIN_PASSWORD --admin_email="example@example.com" --path=/var/www/html/wordpress/'
+runuser -p wpuser -c 'wp core install --url="tmorris.42.fr"  --title="tmorris Demo" --admin_user=$WP_ADMIN_USERNAME --admin_password=$WP_ADMIN_PASSWORD --admin_email="example@example.com" --path=/var/www/html/wordpress/'
 
 php-fpm7.3 -F -R
 
