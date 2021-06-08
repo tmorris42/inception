@@ -11,7 +11,7 @@ server {
 	server_name tmorris.42.fr www.tmorris.42.fr;
 
 	location / {
-		autoindex on;
+		autoindex off;
 		try_files $uri $uri/ =404;
 	}
 
