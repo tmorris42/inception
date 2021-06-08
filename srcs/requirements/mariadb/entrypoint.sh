@@ -1,12 +1,12 @@
 service mysql start;
-DB_EXISTS=`mysql -Be "show databases;" | grep "$MYSQL_DATABASE" | wc -l`;
+DB_EXISTS=`mysql -Be "show databases;" | grep "$WORDPRESS_DB_NAME" | wc -l`;
 if [ "$DB_EXISTS" = "0" ]; then
-	mysql -e "CREATE DATABASE $MYSQL_DATABASE;";
+	mysql -e "CREATE DATABASE $WORDPRESS_DB_NAME;";
 fi
-USER_EXISTS=`mysql -Be "SELECT user FROM mysql.user;" | grep "$MYSQL_USER" | wc -l`;
+USER_EXISTS=`mysql -Be "SELECT user FROM mysql.user;" | grep "$WORDPRESS_DB_USER" | wc -l`;
 if [ "$USER_EXISTS" = "0" ]; then
-	mysql -e "CREATE USER '$MYSQL_USER'@'srcs_wordpress_1.srcs_backend' IDENTIFIED BY '$MYSQL_PASSWORD';";
-	mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE . * TO  '$MYSQL_USER'@'srcs_wordpress_1.srcs_backend' IDENTIFIED BY '$MYSQL_PASSWORD';";
+	mysql -e "CREATE USER '$WORDPRESS_DB_USER'@'srcs_wordpress_1.srcs_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';";
+	mysql -e "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME . * TO  '$WORDPRESS_DB_USER'@'srcs_wordpress_1.srcs_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';";
 	mysql -e "FLUSH PRIVILEGES;";
 fi
 service mysql stop;
