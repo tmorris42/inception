@@ -5,10 +5,10 @@ server {
 	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 	ssl_protocols TLSv1.2 TLSv1.3;
 
-	root /var/www/html;
+	root /var/www/html/wordpress;
 	index index.php index.html index.htm index.nginx-debian.html;
 
-	server_name localhost www.localhost;
+	server_name tmorris.42.fr www.tmorris.42.fr;
 
 	location / {
 		autoindex on;
