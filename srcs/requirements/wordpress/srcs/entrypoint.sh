@@ -14,10 +14,6 @@ while ! mysqladmin ping -h"mysql" --silent; do
 done
 echo "Connected."
 
-echo "checking environment:"
-env
-
-
 # Install WordPress using non-root user
 useradd -m wpuser
 chown -R wpuser:wpuser /var/www/html/
