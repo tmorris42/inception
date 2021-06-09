@@ -49,4 +49,14 @@ networks:
 
 volumes:
     wordpress-files:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/home/tmorris/data/wordpress-files'
     mariadb-db:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/home/tmorris/data/mariadb-db'
