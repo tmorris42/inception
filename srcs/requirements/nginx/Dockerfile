@@ -12,6 +12,10 @@ COPY ./conf /etc/nginx/sites-available/tmorris
 RUN ln -s /etc/nginx/sites-available/tmorris /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
+# Redirect error logs
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+			&& ln -sf /dev/stderr /var/log/nginx/error.log
+
 # Expose port
 EXPOSE 443
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
