@@ -1,14 +1,12 @@
-service mysql start;
-DB_EXISTS=`mysql -Be "show databases;" | grep "$WORDPRESS_DB_NAME" | wc -l`;
-if [ "$DB_EXISTS" = "0" ]; then
-	mysql -e "CREATE DATABASE $WORDPRESS_DB_NAME;";
-fi
-USER_EXISTS=`mysql -Be "SELECT user FROM mysql.user;" | grep "$WORDPRESS_DB_USER" | wc -l`;
-if [ "$USER_EXISTS" = "0" ]; then
-	mysql -e "CREATE USER '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';";
-	mysql -e "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME . * TO  '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';";
-	mysql -e "FLUSH PRIVILEGES;";
-fi
-service mysql stop;
+# Create directory for mysqld .pid and .sock files
+mkdir -m 777 /var/run/mysqld
 
-exec mysqld;
+# Create instructions to create new database and user if necessary
+echo "CREATE DATABASE IF NOT EXISTS $WORDPRESS_DB_NAME;" > /tmp/init.sql
+chmod 755 /tmp/init.sql
+echo "CREATE USER IF NOT EXISTS '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';" >> /tmp/init.sql
+echo "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME . * TO  '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';" >> init.sql
+echo "FLUSH PRIVILEGES;" >> init.sql
+
+# Start mysqld
+exec mysqld --init-file=/tmp/init.sql;
