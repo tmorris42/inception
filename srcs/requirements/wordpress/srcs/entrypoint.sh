@@ -1,5 +1,4 @@
-service php7.3-fpm start
-service php7.3-fpm stop
+mkdir -m 755 /run/php/
 
 cp -r /tmp/html/wordpress /var/www/html/
 cp /tmp/wp-config.php /var/www/html/wordpress/
