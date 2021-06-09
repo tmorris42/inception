@@ -1,9 +1,9 @@
 version: '3'
-
 services:
     mysql:
         build: ./requirements/mariadb/
-        image: my_mariadb_img
+        image: mariadb
+        container_name: mysql
         volumes:
             - "mariadb-db:/var/lib/mysql"
         env_file:
@@ -15,9 +15,10 @@ services:
             - 3306
     wordpress:
         build: ./requirements/wordpress/
-        image: my_wordpress_img
+        image: wordpress
+        container_name: wordpress
         volumes:
-            - "wp-test:/var/www/html"
+            - "wordpress-files:/var/www/html"
         depends_on:
             - mysql
         env_file:
@@ -30,11 +31,12 @@ services:
             - 9000
     nginx:
         build: ./requirements/nginx/
-        image: my_nginx_img
+        image: nginx
+        container_name: nginx
         ports:
             - 443:443
         volumes:
-            - "wp-test:/var/www/html"
+            - "wordpress-files:/var/www/html"
         depends_on:
             - wordpress
         restart: always
@@ -46,5 +48,5 @@ networks:
     backend:
 
 volumes:
-    wp-test:
+    wordpress-files:
     mariadb-db:
