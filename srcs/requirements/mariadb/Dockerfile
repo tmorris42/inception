@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y -q \
 	mariadb-client \
 	mariadb-server
 
+RUN ln -sf /dev/stderr /var/log/mysql/error.log
 WORKDIR /tmp/
 COPY . .
 RUN cp ./50-server.cnf /etc/mysql/mariadb.conf.d/
