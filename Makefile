@@ -1,15 +1,18 @@
 CONFIG_PATH = ./srcs/docker-compose.yml 
+PROJECT_NAME = inception
 
-.DEFAULT_GOAL := all
+all: build up
 
-all:
-	docker-compose -p"inception" -f $(CONFIG_PATH) build
-	docker-compose -p"inception" -f $(CONFIG_PATH) up -d
+up:
+	docker-compose -p"$(PROJECT_NAME)" -f $(CONFIG_PATH) up -d
 
-done:
-	docker-compose -p"inception" -f $(CONFIG_PATH) down
+build:
+	docker-compose -p"$(PROJECT_NAME)" -f $(CONFIG_PATH) build
 
-fclean: done
+down:
+	docker-compose -p"$(PROJECT_NAME)" -f $(CONFIG_PATH) down
+
+fclean: down
 	docker volume rm inception_mariadb-db inception_wordpress-files
 	sudo rm -rf /home/tmorris/data/mariadb-db
 	sudo rm -rf /home/tmorris/data/wordpress-files
