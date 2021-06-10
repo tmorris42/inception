@@ -31,4 +31,4 @@ create_user:
 	sudo usermod -aG docker $(USER)
 	newgrp docker
 
-.PHONY: all done re
+.PHONY: all done re up down build fclean prepare_volumes create_user
