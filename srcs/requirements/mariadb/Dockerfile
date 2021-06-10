@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y -q \
 
 RUN ln -sf /dev/stderr /var/log/mysql/error.log
 WORKDIR /tmp/
-COPY . .
+COPY ./srcs/. .
 RUN cp ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 # Expose ports and set autoindex
