@@ -23,6 +23,10 @@ fclean: down
 re: fclean
 	$(MAKE) all
 
+prepare_volumes:
+	sudo mkdir -p /home/tmorris/data/mariadb-db
+	sudo mkdir -p /home/tmorris/data/wordpress-files
+
 create_user:
 	sudo usermod -aG docker $(USER)
 	newgrp docker
