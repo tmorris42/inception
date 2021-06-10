@@ -36,6 +36,9 @@ RUN wget -q -O /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds
 RUN mkdir html
 RUN tar xzf latest.tar.gz -C ./html/
 
+# Redirect Logs
+RUN ln -sf /dev/stderr /var/log/php7.3-fpm.log
+
 COPY ./srcs/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 COPY ./srcs/wp-config.php ./
 COPY ./srcs/entrypoint.sh ./
