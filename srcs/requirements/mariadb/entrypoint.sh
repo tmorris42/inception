@@ -6,6 +6,7 @@ echo "CREATE DATABASE IF NOT EXISTS $WORDPRESS_DB_NAME;" > /tmp/init.sql
 chmod 755 /tmp/init.sql
 echo "CREATE USER IF NOT EXISTS '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';" >> /tmp/init.sql
 echo "GRANT ALL PRIVILEGES ON $WORDPRESS_DB_NAME . * TO  '$WORDPRESS_DB_USER'@'wordpress.inception_backend' IDENTIFIED BY '$WORDPRESS_DB_PASSWORD';" >> init.sql
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD(\"$MYSQL_ROOT_PASSWORD\");" >>init.sql
 echo "FLUSH PRIVILEGES;" >> init.sql
 
 # Start mysqld
